@@ -4,18 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a19efd9-792f-4c0c-8dd2-b2ef9b55d233" name="Changes" comment="" />
+    <list default="true" id="3a19efd9-792f-4c0c-8dd2-b2ef9b55d233" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Layout/CustomNavbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Layout/CustomNavbar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Home.vue" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Vue Composition API Component" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/client/src/components/Layout/CustomFooter.vue" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/client/src/components/Layout/CustomNavbar.vue" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/client/src/pages/Home.vue" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2z93haYZzUbZhAB7uWzGxB5EP26" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -32,7 +52,14 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\Ryzen 5600\\Documents\\Upslp\\Verano 2025\\TaG-project\\client\\node_modules\\prettier",
+    "ts.external.directory.path": "C:\\Users\\Ryzen 5600\\AppData\\Local\\Programs\\WebStorm\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "vue.recent.templates": [
+      "Vue Composition API Component"
+    ]
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -50,7 +77,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1751129582933</updated>
-      <workItem from="1751129584378" duration="793000" />
+      <workItem from="1751129584378" duration="3059000" />
+      <workItem from="1751137405278" duration="7208000" />
     </task>
     <servers />
   </component>

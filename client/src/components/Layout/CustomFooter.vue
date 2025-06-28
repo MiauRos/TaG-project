@@ -16,7 +16,7 @@ const footerText = computed(() => {
 
 <style scoped>
 .v-footer {
-  height: 30px;
+  height: 25px;
   font-size: 14px;
 }
 </style>

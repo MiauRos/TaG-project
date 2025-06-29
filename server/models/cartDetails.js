@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  return sequelize.define('CartDetails', {
+  const CartDetails = sequelize.define('CartDetails', {
     cart_id: {
       type: DataTypes.INTEGER,
       primaryKey: true
@@ -27,4 +27,18 @@ export default (sequelize, DataTypes) => {
     tableName: 't_cart_details',
     timestamps: false
   });
+
+  CartDetails.associate = (models) => {
+    CartDetails.belongsTo(models.Cart, {
+      foreignKey: 'cart_id',
+      as: 'cart'
+    });
+  };
+
+  CartDetails.associate = (models) => {
+    CartDetails.belongsTo(models.User, {
+      foreignKey: 'user_id',
+      as: 'user'
+    });
+  };
 };

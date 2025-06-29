@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  return sequelize.define('Product', {
+  const Product = sequelize.define('Product', {
     product_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -55,4 +55,13 @@ export default (sequelize, DataTypes) => {
     tableName: 't_product',
     timestamps: false
   });
+
+  Product.associate = (models) => {
+    Product.belongsTo(models.Category, {
+      foreignKey: 'category_id',
+      as: 'category'
+    });
+  };
+
+  return Product;
 };

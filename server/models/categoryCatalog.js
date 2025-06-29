@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  return sequelize.define('Category', {
+  const Category = sequelize.define('Category', {
     category_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -22,4 +22,6 @@ export default (sequelize, DataTypes) => {
     tableName: 't_category_catalog',
     timestamps: false
   });
+
+  return Category;
 };

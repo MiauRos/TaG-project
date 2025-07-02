@@ -41,4 +41,6 @@ export default (sequelize, DataTypes) => {
       as: 'user'
     });
   };
+
+  return CartDetails;
 };

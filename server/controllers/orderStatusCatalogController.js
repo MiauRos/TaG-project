@@ -20,7 +20,7 @@ export const getStatusById = async (req, res) => {
 
 export const createStatus = async (req, res) => {
     try {
-        const newStatus = await req.models.OrderStatus.create(req.body);
+        const newStatus = await models.OrderStatus.create(req.body);
         res.status(201).json(newStatus);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -29,7 +29,7 @@ export const createStatus = async (req, res) => {
 
 export const updateStatus = async (req, res) => {
     try {
-        const updated = await req.models.OrderStatus.update(req.body, { where: { status_id: req.params.id } });
+        const updated = await models.OrderStatus.update(req.body, { where: { status_id: req.params.id } });
         res.json({ updated })
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -38,7 +38,7 @@ export const updateStatus = async (req, res) => {
 
 export const deleteStatus = async (req, res) => {
     try {
-        await req.models.OrderStatus.destroy({ where: { status_id: req.params.id } });
+        await models.OrderStatus.destroy({ where: { status_id: req.params.id } });
         res.status(204).send();
     } catch (error) {
         res.status(500).json({ error: error.message })

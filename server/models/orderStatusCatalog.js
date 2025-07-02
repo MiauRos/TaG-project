@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  return sequelize.define('OrderStatus', {
+  const OrderStatus = sequelize.define('OrderStatus', {
     status_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -18,4 +18,6 @@ export default (sequelize, DataTypes) => {
     tableName: 't_order_status_catalog',
     timestamps: false
   });
+
+  return OrderStatus;
 };

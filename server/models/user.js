@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  return sequelize.define('User', {
+  const User = sequelize.define('User', {
     user_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -50,4 +50,6 @@ export default (sequelize, DataTypes) => {
     tableName: 't_user',
     timestamps: false
   });
+
+  return User;
 };

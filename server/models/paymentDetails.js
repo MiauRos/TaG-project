@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  return sequelize.define('PaymentDetails', {
+  const PaymentDetails = sequelize.define('PaymentDetails', {
     payment_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -33,4 +33,6 @@ export default (sequelize, DataTypes) => {
     tableName: 't_payment_details',
     timestamps: false
   });
+
+  return PaymentDetails;
 };

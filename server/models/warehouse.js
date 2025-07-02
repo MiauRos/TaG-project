@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  return sequelize.define('Warehouse', {
+  const Warehouse = sequelize.define('Warehouse', {
     warehouse_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -34,4 +34,6 @@ export default (sequelize, DataTypes) => {
     tableName: 't_warehouse',
     timestamps: false
   });
+
+  return Warehouse;
 };

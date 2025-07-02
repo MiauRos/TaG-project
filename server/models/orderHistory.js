@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  return sequelize.define('OrderHistory', {
+  const OrderHistory = sequelize.define('OrderHistory', {
     history_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -27,4 +27,13 @@ export default (sequelize, DataTypes) => {
     tableName: 't_order_history',
     timestamps: false
   });
+
+  OrderHistory.associate = (models) => {
+    OrderHistory.belongsTo(models.Order, {
+      foreignKey: 'order_id',
+      as: 'order'
+    });
+  };
+
+  return OrderHistory;
 };

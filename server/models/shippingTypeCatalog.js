@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  return sequelize.define('ShippingType', {
+  const ShippingType = sequelize.define('ShippingType', {
     shipping_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -18,4 +18,6 @@ export default (sequelize, DataTypes) => {
     tableName: 't_shipping_type_catalog',
     timestamps: false
   });
+
+  return ShippingType;
 };

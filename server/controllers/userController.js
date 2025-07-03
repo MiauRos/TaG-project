@@ -15,7 +15,7 @@ export const getUserById = async (req, res) => {
     if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
     res.json(user);
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener usuario' });
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -24,7 +24,7 @@ export const createUser = async (req, res) => {
     const newUser = await models.User.create(req.body);
     res.status(201).json(newUser);
   } catch (error) {
-    res.status(500).json({ error: 'Error al crear usuario' });
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -33,7 +33,7 @@ export const updateUser = async (req, res) => {
     const updated = await models.User.update(req.body, { where: { user_id: req.params.id } });
     res.json({ updated });
   } catch (error) {
-    res.status(500).json({ error: 'Error al actualizar usuario' });
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -42,6 +42,6 @@ export const deleteUser = async (req, res) => {
     await models.User.destroy({ where: { user_id: req.params.id } });
     res.status(204).send();
   } catch (error) {
-    res.status(500).json({ error: 'Error al eliminar usuario' });
+    res.status(500).json({ error: error.message });
   }
 };

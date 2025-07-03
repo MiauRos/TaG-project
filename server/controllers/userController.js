@@ -1,4 +1,4 @@
-import models from "../models";
+import models from "../models/index.js";
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -43,5 +43,35 @@ export const deleteUser = async (req, res) => {
     res.status(204).send();
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+
+// Extra methods necessary
+
+export const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await models.User.findOne({ where: { email } });
+
+    if (!user) {
+      return res.status(401).json({ error: 'Correo inexistente' });
+    }
+
+        if (user.password !== password) {
+      return res.status(401).json({ error: 'Contraseña incorrecta' });
+    }
+
+    res.json({
+      message: 'Inicio de sesión exitoso',
+      user: {
+        id: user.user_id,
+        email: user.email,
+        role: user.role,
+        name: `${user.first_name} ${user.last_name}`,
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al iniciar sesión' });
   }
 };

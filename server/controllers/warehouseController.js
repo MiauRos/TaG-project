@@ -1,4 +1,4 @@
-import models from '../models'
+import models from '../models/index.js'
 
 export const getAllWarehouses = async (req, res) => {
     try {

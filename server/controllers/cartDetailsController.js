@@ -62,3 +62,32 @@ export const deleteCartDetail = async (req, res) => {
     res.status(500).json({ error: 'Error al eliminar detalle de carrito' });
   }
 };
+
+export const createCartDetails = async (req, res) => {
+  try {
+    const newCartDetails = await models.CartDetails.create(req.body);
+    res.status(201).json(newCartDetails);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al crear carrito' });
+  }
+};
+
+export const getCartDetailsByCartId = async (req, res) => {
+  try {
+    const cartDetails = await models.CartDetails.findAll({
+      where: { cart_id: req.params.cartId },
+      include: [
+        {
+          model: models.Product,
+          as: 'product'
+        },
+        {
+          model: models.Cart,
+          as: 'cart'
+        }
+      ]
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener detalles del carrito' });
+  }
+}

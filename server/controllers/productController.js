@@ -1,6 +1,6 @@
 import models from '../models/index.js';
 
-export const getProducts = async (req, res) => {
+export const getAllProducts = async (req, res) => {
   try {
     const products = await models.Product.findAll({
       include: {

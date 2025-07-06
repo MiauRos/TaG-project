@@ -20,7 +20,15 @@ export const getUserById = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
+  const { email, password, ...rest } = req.body;
+
   try {
+    const existingUser = await User.findOne({ where: { email } });
+
+    if (existingUser) {
+      return res.status(400).json({ error: 'El correo ya está registrado' });
+    }
+
     const newUser = await models.User.create(req.body);
     res.status(201).json(newUser);
   } catch (error) {
@@ -58,7 +66,7 @@ export const loginUser = async (req, res) => {
       return res.status(401).json({ error: 'Correo inexistente' });
     }
 
-        if (user.password !== password) {
+    if (user.password !== password) {
       return res.status(401).json({ error: 'Contraseña incorrecta' });
     }
 

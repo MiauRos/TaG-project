@@ -13,7 +13,7 @@
         <p class="text-subtitle-1 mb-6">
           Aquí encontrarás los mejores productos al mejor precio. 🌟
         </p>
-        <v-btn color="primary" size="large" prepend-icon="mdi-cart">
+        <v-btn color="primary" size="large" prepend-icon="mdi-cart" to="/products">
           Ver productos
         </v-btn>
       </v-col>
@@ -21,7 +21,7 @@
     <v-row>
       <v-col v-for="product in products" :key="product.id" cols="12" md="3">
         <v-card>
-          <v-img :src="product.imageUrl" height="200px"/>
+          <v-img :src="product.image_url" height="200px"/>
           <v-card-title>{{ product.name }}</v-card-title>
           <v-card-subtitle>${{ product.price }}</v-card-subtitle>
           <v-card-text>{{ product.description }}</v-card-text>

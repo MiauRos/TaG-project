@@ -126,7 +126,7 @@ const rules = {
 
 const submitForm = async () => {
   try {
-    const response = await axios.post('http://localhost:3000/api/users', form.value)
+    await axios.post('http://localhost:3000/api/createUser', form.value)
     successMessage.value = '¡Registro exitoso!'
     errorMessage.value = ''
     form.value = {
@@ -141,7 +141,7 @@ const submitForm = async () => {
       phone_number: '',
     }
   } catch (error) {
-    errorMessage.value = 'Error al registrar usuario'
+    errorMessage.value = error.message;
     successMessage.value = ''
   }
 }

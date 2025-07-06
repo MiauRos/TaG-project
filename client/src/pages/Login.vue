@@ -4,10 +4,29 @@
       <v-card-title>Iniciar Sesión</v-card-title>
       <v-card-text>
         <v-form @submit.prevent="login">
-          <v-text-field v-model="email" label="Correo electrónico" required />
-          <v-text-field v-model="password" label="Contraseña" type="password" required />
-
-          <v-btn color="primary" type="submit" class="mt-4" block>Entrar</v-btn>
+          <v-text-field
+            v-model="email"
+            label="Correo electrónico"
+            required
+            variant="outlined"
+            density="compact"
+            color="primary"
+          />
+          <v-text-field
+            v-model="password"
+            label="Contraseña"
+            type="password"
+            required
+            variant="outlined"
+            density="compact"
+            color="primary"
+          />
+          <v-btn
+            color="primary"
+            type="submit"
+            class="mt-4"
+            block
+          >Entrar</v-btn>
 
           <v-alert
             v-if="error"
@@ -18,16 +37,6 @@
           >
             {{ error }}
           </v-alert>
-
-          <v-alert
-            v-if="loggedUser !== null"
-            type="success"
-            variant="outlined"
-            class="mt-4"
-            dismissible
-          >
-            Bienvenido {{ loggedUser.name }}
-          </v-alert>
         </v-form>
       </v-card-text>
     </v-card>
@@ -35,29 +44,31 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import axios from 'axios'
+import { ref } from 'vue';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/user.js';
 
-const email = ref('')
-const password = ref('')
-const error = ref('')
-const loggedUser = ref(null);
+const userStore = useUserStore();
+
+const email = ref('');
+const password = ref('');
+const error = ref('');
+const router = useRouter();
 
 const login = async () => {
-    error.value = '';
-    loggedUser.value = null;
   try {
     const res = await axios.post('http://localhost:3000/api/login', {
       email: email.value,
       password: password.value,
-    })
+    });
 
-    console.log('✅ Usuario logueado:', res.data)
-    
-    loggedUser.value = res.data.user;
+    // Guardar usuario en el store y localStorage
+    userStore.login(res.data.user);
+
+    router.push('/')
   } catch (err) {
-    password.value = '';
-    error.value = err.response?.data?.error || 'Error al iniciar sesión'
+    error.value = err.response?.data?.error || 'Error al iniciar sesión';
   }
-}
+};
 </script>

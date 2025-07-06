@@ -126,7 +126,7 @@ const rules = {
 
 const submitForm = async () => {
   try {
-    await axios.post('http://localhost:3000/api/createUser', form.value)
+    await axios.post('http://localhost:3000/api/user/', form.value)
     successMessage.value = '¡Registro exitoso!'
     errorMessage.value = ''
     form.value = {

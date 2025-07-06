@@ -49,6 +49,9 @@ export default (sequelize, DataTypes) => {
     },
     updated_by: {
       type: DataTypes.STRING(20)
+    },
+    image_url: {
+      type: DataTypes.STRING(255)
     }
   },
   {

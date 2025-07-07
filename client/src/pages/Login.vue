@@ -1,7 +1,9 @@
 <template>
   <v-container class="fill-height d-flex justify-center align-center" fluid>
     <v-card class="pa-6" width="500">
-      <v-card-title>Iniciar Sesión</v-card-title>
+      <v-card-title class="text-h6 font-weight-bold text-primary">
+        Iniciar Sesión
+      </v-card-title>
       <v-card-text>
         <v-form @submit.prevent="login">
           <v-text-field
@@ -21,12 +23,10 @@
             density="compact"
             color="primary"
           />
-          <v-btn
-            color="primary"
-            type="submit"
-            class="mt-4"
-            block
-          >Entrar</v-btn>
+
+          <v-btn color="primary" type="submit" class="mt-4" block>
+            Entrar
+          </v-btn>
 
           <v-alert
             v-if="error"
@@ -38,6 +38,17 @@
             {{ error }}
           </v-alert>
         </v-form>
+
+        <v-divider class="my-4" />
+
+        <v-btn
+          variant="text"
+          color="secondary"
+          block
+          @click="router.push('/register')"
+        >
+          ¿No tienes cuenta? Regístrate
+        </v-btn>
       </v-card-text>
     </v-card>
   </v-container>
@@ -63,10 +74,8 @@ const login = async () => {
       password: password.value,
     });
 
-    // Guardar usuario en el store y localStorage
     userStore.login(res.data.user);
-
-    router.push('/')
+    router.push('/');
   } catch (err) {
     error.value = err.response?.data?.error || 'Error al iniciar sesión';
   }

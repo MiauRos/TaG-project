@@ -2,8 +2,8 @@
   <v-card>
     <!-- HEADER -->
     <v-card-title
-    class="d-flex justify-space-between align-center"
-    style="position: sticky; top: 0; z-index: 1; background-color: #fff;"
+      class="d-flex justify-space-between align-center"
+      style="position: sticky; top: 0; z-index: 1; background-color: #fff;"
     >
       <h3 class="text-h6 mb-0">{{ product.name }}</h3>
       <v-btn icon variant="flat" @click="emit('close')">
@@ -34,6 +34,20 @@
             </v-table>
           </v-col>
         </v-row>
+        <v-row>
+          <v-col cols="12">
+            <v-text-field
+              label="Cantidad"
+              type="number"
+              v-model.number="quantity"
+              :min="1"
+              :max="product.stock"
+              density="compact"
+              color="primary"
+              variant="outlined"
+            />
+          </v-col>
+        </v-row>
       </v-card>
     </v-card-text>
 
@@ -58,6 +72,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import axios from 'axios'
 
 const props = defineProps({
@@ -67,8 +82,9 @@ const props = defineProps({
   }
 });
 
-const emit = defineEmits(['close', 'add-to-cart', 'buy-now'])
-const user = JSON.parse(localStorage.getItem('user'))
+const emit = defineEmits(['close', 'add-to-cart', 'buy-now']);
+const user = JSON.parse(localStorage.getItem('user'));
+const quantity = ref(1);
 
 const handleAddToCart = async () => {
   if (!user) {
@@ -76,26 +92,41 @@ const handleAddToCart = async () => {
   }
 
   try {
-    const { data: existingCarts } = await axios.get(`http://localhost:3000/api/cart/user/${user.id}?is_staging=false&is_active=true`);
-    let cart;
-    if(existingCarts) {
-      cart = existingCarts[0];
-    } else {
-      cart = await axios.post('http://localhost:3000/api/cart/', {
+    const { data: existingCarts } = await axios.get(`http://localhost:3000/api/cart/user/${user.id}?is_staging=false&is_active=true`)
+    let cart = existingCarts[0]
+
+    if (!cart) {
+      const res = await axios.post('http://localhost:3000/api/cart/', {
         user_id: user.id,
         is_staging: false,
         is_active: true
       })
+      cart = res.data
     }
 
-    await axios.post('http://localhost:3000/api/cart-details/', {
-      cart_id: cart.cart_id,
-      product_id: props.product.product_id,
-      quantity: 1,
-      total_price: props.product.price,
-      updated_by: user.email,
-      update_date: new Date()
-    })
+    let existingDetail
+    await axios.get(`http://localhost:3000/api/cart-details/${cart.cart_id}/${props.product.product_id}`).then((response) => {
+      existingDetail = response.data;
+    }).catch((error) => {console.log(error)});
+
+    if (existingDetail) {
+      const newQuantity = existingDetail.quantity + quantity.value
+      await axios.put(`http://localhost:3000/api/cart-details/${cart.cart_id}/${props.product.product_id}`, {
+        quantity: newQuantity,
+        total_price: props.product.price * newQuantity,
+        updated_by: user.email,
+        update_date: new Date()
+      })
+    } else {
+      await axios.post('http://localhost:3000/api/cart-details/', {
+        cart_id: cart.cart_id,
+        product_id: props.product.product_id,
+        quantity: quantity.value,
+        total_price: props.product.price * quantity.value,
+        updated_by: user.email,
+        update_date: new Date()
+      })
+    };
 
     emit('close');
   } catch (error) {
@@ -105,28 +136,28 @@ const handleAddToCart = async () => {
 
 const handleBuyNow = async () => {
   if (!user) {
-    window.location.href = '/login'
+    window.location.href = '/login';
   }
 
   try {
-    const { data: cart } = await axios.post('http://localhost:3000/api/cart/', {
+    const res = await axios.post('http://localhost:3000/api/cart/', {
       user_id: user.id,
       is_staging: true,
       is_active: true
     })
+    const cart = res.data
 
     await axios.post('http://localhost:3000/api/cart-details/', {
       cart_id: cart.cart_id,
       product_id: props.product.product_id,
-      quantity: 1,
-      total_price: props.product.price,
-      update_date: new Date(),
-      updated_by: user.email
+      quantity: quantity.value,
+      total_price: props.product.price * quantity.value,
+      updated_by: user.email,
+      update_date: new Date()
     })
 
-    //emit('buy-now')
-    // Redirigir a página de pago inmediato
-    // window.location.href = '/cart'
+    // Redirigir si se desea
+    // window.location.href = '/checkout'
   } catch (error) {
     console.error('Error al comprar ahora:', error)
   }

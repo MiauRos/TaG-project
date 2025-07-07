@@ -55,3 +55,19 @@ export const deleteCart = async (req, res) => {
     res.status(500).json({ error: 'Error al eliminar carrito' });
   }
 };
+
+export const getCartByUserId = async (req, res) => {
+  try {
+    const cart = await models.Cart.findOne({
+      where: { user_id: req.params.userId, is_staging: false },
+      include: [{
+        model: models.User,
+        as: 'user'
+      }]
+    });
+    if (!cart) return res.status(404).json({ error: 'Carrito no encontrado para este usuario' });
+    res.json(cart);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}

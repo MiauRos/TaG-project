@@ -1,16 +1,35 @@
 <template>
-  <v-container class="pa-4" fluid>
-    <h2 class="text-2xl font-bold mb-4">Selecciona tus productos</h2>
+  <v-container class="pa-6" fluid>
+    <h1 class="text-h4 font-weight-bold text-primary mb-2">Explora nuestros productos</h1>
+    <p class="text-subtitle-1 mb-6">
+      Encuentra tecnología de punta agrupada por categoría. ¡Haz clic para más detalles!
+    </p>
 
-    <!-- Pestañas para categorías -->
-    <v-tabs v-model="activeTab">
-      <v-tab v-for="(items, category) in groupedProducts" :key="category" color="primary">
+    <!-- Pestañas de categorías -->
+    <v-tabs
+      v-model="activeTab"
+      grow
+      show-arrows
+      class="mb-6"
+      background-color="accent"
+    >
+      <v-tab
+        v-for="(items, category, index) in groupedProducts"
+        :key="category"
+        :value="index"
+        class="text-capitalize"
+        color="primary"
+      >
         {{ category }}
       </v-tab>
     </v-tabs>
 
-    <v-tabs-window v-model="activeTab" class="pt-2">
-      <v-tabs-window-item v-for="(items, category) in groupedProducts" :key="category">
+    <v-tabs-window v-model="activeTab">
+      <v-tabs-window-item
+        v-for="(items, category, index) in groupedProducts"
+        :key="category"
+        :value="index"
+      >
         <v-row>
           <v-col
             v-for="product in items"
@@ -19,14 +38,26 @@
             sm="6"
             md="4"
           >
-            <v-card :elevation="2" class="mb-4">
-              <v-card-title>{{ product.name }}</v-card-title>
-              <v-card-subtitle>${{ product.price.toFixed(2) }}</v-card-subtitle>
+            <v-card class="hover:scale-105 transition-all" elevation="3">
+              <v-img
+                :src="product.image_url || 'https://via.placeholder.com/300x200?text=Sin+imagen'"
+                height="200px"
+                contain
+              />
+              <v-card-title class="font-weight-medium">{{ product.name }}</v-card-title>
+              <v-card-subtitle class="text-secondary mb-2">${{ product.price.toFixed(2) }}</v-card-subtitle>
+
+              <v-card-text class="text-truncate">
+                {{ product.description }}
+              </v-card-text>
+
               <v-card-actions>
+                <v-spacer />
                 <v-btn
                   :disabled="!product.is_active"
-                  @click="handleView(product)"
                   color="primary"
+                  variant="elevated"
+                  @click="handleView(product)"
                 >
                   Ver detalles
                 </v-btn>
@@ -37,7 +68,8 @@
       </v-tabs-window-item>
     </v-tabs-window>
 
-    <v-dialog v-model="productDialog" width="800" height="600">
+    <!-- Dialogo de producto -->
+    <v-dialog v-model="productDialog" max-width="700">
       <product-dialog
         :product="selectedProduct"
         @close="productDialog = false"
@@ -49,7 +81,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
-import ProductDialog from '@/components/ProductDialog.vue'
+import ProductDialog from '@/components/ProductDialog.vue';
 
 const products = ref([]);
 const activeTab = ref(0);
@@ -78,3 +110,11 @@ const handleView = (product) => {
   productDialog.value = true;
 };
 </script>
+
+<style scoped>
+.text-truncate {
+  max-height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>

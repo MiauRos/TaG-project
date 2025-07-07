@@ -26,7 +26,7 @@
         <v-card-title class="text-subtitle-1">
           Orden #{{ order.order_id }}
           <v-spacer />
-          <v-chip color="primary" variant="tonal">
+          <v-chip :color="statusColor(order.status?.name)" variant="tonal">
             {{ order.status?.name || 'Sin estado' }}
           </v-chip>
         </v-card-title>
@@ -96,6 +96,34 @@ const maskedCard = (number) => {
   if (!number) return 'N/A'
   return '**** **** **** ' + number.slice(-4)
 }
+
+const statusColor = (statusName) => {
+  switch (statusName) {
+    case 'Pending Payment':
+      return 'warning';     // #FFA726
+    case 'Paid':
+      return 'success';     // #66BB6A
+    case 'Processing':
+      return 'accent';      // #A5D6A7
+    case 'Shipped':
+      return 'info';        // #26C6DA
+    case 'In Transit':
+      return 'primary';     // #43A047
+    case 'Delivered':
+      return 'secondary';   // #1B5E20
+    case 'Cancelled':
+      return 'error';       // #EF5350
+    case 'Refunded':
+      return 'info';        // #26C6DA
+    case 'Failed':
+      return 'error';       // #EF5350
+    case 'Returned':
+      return 'accent';      // #A5D6A7
+    default:
+      return 'grey';
+  }
+}
+
 
 onMounted(async () => {
   if (!user) return

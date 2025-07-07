@@ -58,15 +58,23 @@ export const deleteCart = async (req, res) => {
 
 export const getCartByUserId = async (req, res) => {
   try {
-    const cart = await models.Cart.findOne({
-      where: { user_id: req.params.userId, is_staging: false },
-      include: [{
-        model: models.User,
-        as: 'user'
-      }]
-    });
-    if (!cart) return res.status(404).json({ error: 'Carrito no encontrado para este usuario' });
-    res.json(cart);
+    const { is_staging, is_active } = req.query;
+
+    const whereClause = {
+      user_id: req.params.userId,
+      ...(is_staging !== undefined && { is_staging: is_staging === 'true' }),
+      ...(is_active !== undefined && { is_active: is_active === 'true' })
+    };
+
+    const carts = await models.Cart.findAll({ where: whereClause },
+      {
+        include: [{
+          model: models.User,
+          as: 'user'
+        }]
+      }
+    );
+    res.json(carts);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

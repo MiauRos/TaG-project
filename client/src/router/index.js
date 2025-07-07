@@ -4,13 +4,15 @@ import Login from '../pages/Login.vue'
 import Products from '../pages/Products.vue'
 import Register from '../pages/Register.vue'
 import Cart from '../pages/Cart.vue'
+import Checkout from '../pages/Checkout.vue'
 
 const routes = [
   { path: '/', component: Home },
   { path: '/login', name: 'Login', component: Login },
   { path: '/products', name: 'Products', component: Products },
   { path: '/register', name: 'Register', component: Register },
-  { path: '/cart', name: 'Cart', component: Cart }
+  { path: '/cart', name: 'Cart', component: Cart },
+  { path: '/checkout', name: 'Checkout', component: Checkout },
 ];
 
 const router = createRouter({

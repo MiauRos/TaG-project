@@ -156,8 +156,11 @@ const handleBuyNow = async () => {
       update_date: new Date()
     })
 
-    // Redirigir si se desea
-    // window.location.href = '/checkout'
+    // Paso 3: Guardar el carrito staging en localStorage para usarlo en /checkout
+    localStorage.setItem('staging_cart_id', cart.cart_id)
+
+    // Paso 4: Redirigir a vista de pago
+    window.location.href = '/checkout'
   } catch (error) {
     console.error('Error al comprar ahora:', error)
   }

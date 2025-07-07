@@ -34,5 +34,12 @@ export default (sequelize, DataTypes) => {
     timestamps: false
   });
 
+  PaymentDetails.associate = (models) => {
+    PaymentDetails.belongsTo(models.User, {
+      foreignKey: 'user_id',
+      as: 'user'
+    });
+  };
+
   return PaymentDetails;
 };

@@ -66,3 +66,21 @@ export const deletePayment = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const getUserPaymentDetails = async (req, res) => {
+  try {
+    const payments = await models.PaymentDetails.findAll({
+      where: { user_id: req.params.userId },
+      include: [
+        {
+          model: models.User,
+          as: 'user'
+        }
+      ]
+    });
+    if (!payments.length) return res.status(404).json({ error: 'No payment details found for this user' });
+    res.json(payments);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}

@@ -61,33 +61,30 @@ export default (sequelize, DataTypes) => {
       foreignKey: 'user_id',
       as: 'user'
     });
-  };
 
-  Order.associate = (models) => {
     Order.belongsTo(models.OrderStatus, {
       foreignKey: 'status_id',
       as: 'status'
     });
-  };
 
-  Order.associate = (models) => {
     Order.belongsTo(models.ShippingType, {
       foreignKey: 'shipping_id',
-      as: 'shipping_type'
+      as: 'shipping'
     });
-  };
 
-  Order.associate = (models) => {
     Order.belongsTo(models.PaymentDetails, {
       foreignKey: 'payment_id',
       as: 'payment'
     });
-  };
 
-  Order.associate = (models) => {
     Order.belongsTo(models.Warehouse, {
       foreignKey: 'warehouse_id',
       as: 'warehouse'
+    });
+
+    Order.belongsTo(models.Cart, {
+      foreignKey: 'cart_id',
+      as: 'cart'
     });
   };
 

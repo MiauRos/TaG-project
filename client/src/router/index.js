@@ -5,6 +5,7 @@ import Products from '../pages/Products.vue'
 import Register from '../pages/Register.vue'
 import Cart from '../pages/Cart.vue'
 import Checkout from '../pages/Checkout.vue'
+import Orders from '../pages/Orders.vue'
 
 const routes = [
   { path: '/', component: Home },
@@ -13,6 +14,7 @@ const routes = [
   { path: '/register', name: 'Register', component: Register },
   { path: '/cart', name: 'Cart', component: Cart },
   { path: '/checkout', name: 'Checkout', component: Checkout },
+  { path: '/orders', name: 'Orders', component: Orders },
 ];
 
 const router = createRouter({

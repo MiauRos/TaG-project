@@ -1,6 +1,8 @@
 <template>
   <v-container class="pa-6" fluid>
-    <h1 class="text-h4 font-weight-bold text-primary mb-2">Explora nuestros productos</h1>
+    <h1 class="text-h5 font-weight-bold text-primary mb-6">
+      <v-icon start>mdi-package-variant-closed</v-icon> Explora nuestros productos
+    </h1>
     <p class="text-subtitle-1 mb-6">
       Encuentra tecnología de punta agrupada por categoría. ¡Haz clic para más detalles!
     </p>

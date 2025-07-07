@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pa-5 px-10">
+  <v-container fluid class="pa-6">
     <template v-if="!user">
       <v-alert type="warning" border="start" variant="outlined" class="mt-6">
         Debes iniciar sesión para ver tus órdenes.
@@ -7,66 +7,85 @@
     </template>
 
     <template v-else>
-      <h1 class="text-h5 mb-6">Mis Órdenes</h1>
+      <h1 class="text-h5 font-weight-bold text-primary mb-6">
+        <v-icon start>mdi-package-variant</v-icon> Mis Órdenes
+      </h1>
 
-      <v-alert
-        v-if="orders.length === 0"
-        type="info"
-        variant="tonal"
-        class="mb-6"
-      >
+      <v-alert v-if="orders.length === 0" type="info" variant="tonal" class="mb-6">
         No tienes órdenes registradas.
       </v-alert>
 
-      <v-card
-        v-for="order in orders"
-        :key="order.order_id"
-        class="mb-6"
-      >
-        <v-card-title class="text-subtitle-1">
-          Orden #{{ order.order_id }}
-          <v-spacer />
-          <v-chip :color="statusColor(order.status?.name)" variant="tonal">
-            {{ order.status?.name || 'Sin estado' }}
-          </v-chip>
-        </v-card-title>
+      <v-card v-for="order in orders" :key="order.order_id" class="mb-8" elevation="2">
+        <v-card-item>
+          <v-card-title class="d-flex justify-space-between align-center">
+            <div>
+              <span class="text-subtitle-1 font-weight-medium">Orden #{{ order.order_id }}</span>
+              <div class="text-caption text-grey-darken-1">{{ formatDate(order.creation_date) }}</div>
+            </div>
+            <v-chip :color="statusColor(order.status?.name)" variant="tonal">
+              {{ order.status?.name || 'Sin estado' }}
+            </v-chip>
+          </v-card-title>
+        </v-card-item>
+
+        <v-divider />
 
         <v-card-text>
-          <v-row>
+          <v-row dense>
             <v-col cols="12" md="3">
-              <p><strong>Fecha:</strong> {{ formatDate(order.creation_date) }}</p>
-              <p><strong>Total:</strong> ${{ order.order_total.toFixed(2) }}</p>
-              <p><strong>Tipo de envío:</strong> {{ order.shipping_type?.name || 'N/A' }}</p>
+              <v-icon start size="20">mdi-calendar</v-icon>
+              <strong>Fecha:</strong> {{ formatDate(order.creation_date) }} <br />
+              <v-icon start size="20">mdi-cash</v-icon>
+              <strong>Total:</strong> ${{ order.order_total.toFixed(2) }} <br />
+              <v-icon start size="20">mdi-truck</v-icon>
+              <strong>Envío:</strong> {{ order.shipping_type?.name || 'N/A' }}
             </v-col>
+
             <v-col cols="12" md="3">
-              <p><strong>Método de pago:</strong> {{ maskedCard(order.payment?.card_number) }}</p>
-              <p><strong>Tipo de tarjeta:</strong> {{ order.payment?.card_type || 'N/A' }}</p>
-              <p><strong>Fecha de expiración:</strong> {{ order.payment?.expiry_date || 'N/A' }}</p>
+              <v-icon start size="20">mdi-credit-card</v-icon>
+              <strong>Tarjeta:</strong> {{ maskedCard(order.payment?.card_number) }} <br />
+              <v-icon start size="20">mdi-card-account-details</v-icon>
+              <strong>Tipo:</strong> {{ order.payment?.card_type || 'N/A' }} <br />
+              <v-icon start size="20">mdi-calendar-clock</v-icon>
+              <strong>Vence:</strong> {{ order.payment?.expiry_date || 'N/A' }}
             </v-col>
+
             <v-col cols="12" md="3">
-              <p><strong>Almacen:</strong> {{ order.warehouse?.name || 'N/A' }}</p>
-              <p><strong>Pais de ubicacion:</strong> {{ order.warehouse?.country || 'N/A' }}</p>
-              <p><strong>Direccion:</strong> {{ order.warehouse?.address || 'N/A' }}</p>
+              <v-icon start size="20">mdi-warehouse</v-icon>
+              <strong>Almacén:</strong> {{ order.warehouse?.name || 'N/A' }} <br />
+              <v-icon start size="20">mdi-earth</v-icon>
+              <strong>País:</strong> {{ order.warehouse?.country || 'N/A' }} <br />
+              <v-icon start size="20">mdi-office-building-outline</v-icon>
+              <strong>Dirección:</strong> {{ order.warehouse?.address || 'N/A' }}
             </v-col>
+
             <v-col cols="12" md="3">
-              <p><strong>Tipo de envio:</strong> {{ order.shipping?.name || 'N/A' }}</p>
-              <p><strong>Descripcion:</strong> {{ order.shipping?.description || 'N/A' }}</p>
-              <p><strong>Nombre del receptor:</strong> {{ order.receiver_name || 'N/A' }}</p>
+              <v-icon start size="20">mdi-truck-delivery</v-icon>
+              <strong>Tipo envío:</strong> {{ order.shipping?.name || 'N/A' }} <br />
+              <v-icon start size="20">mdi-text-long</v-icon>
+              <strong>Descripción:</strong> {{ order.shipping?.description || 'N/A' }} <br />
+              <v-icon start size="20">mdi-account-outline</v-icon>
+              <strong>Receptor:</strong> {{ order.receiver_name || 'N/A' }}
             </v-col>
           </v-row>
 
           <v-divider class="my-4" />
 
           <div v-if="order.cart?.details?.length">
-            <h4 class="text-subtitle-2 mb-2">Productos:</h4>
-            <v-list density="compact">
+            <h4 class="text-subtitle-2 mb-2">
+              <v-icon start size="20">mdi-cart</v-icon> Productos
+            </h4>
+            <v-list lines="two" density="comfortable">
               <v-list-item
                 v-for="item in order.cart.details"
                 :key="item.product_id"
               >
                 <v-list-item-title>
-                  {{ item.product.name }} - x{{ item.quantity }} (${{ item.total_price.toFixed(2) }})
+                  <strong>{{ item.product.name }}</strong>
                 </v-list-item-title>
+                <v-list-item-subtitle>
+                  x{{ item.quantity }} – ${{ item.total_price.toFixed(2) }}
+                </v-list-item-subtitle>
               </v-list-item>
             </v-list>
           </div>
@@ -124,7 +143,6 @@ const statusColor = (statusName) => {
   }
 }
 
-
 onMounted(async () => {
   if (!user) return
 
@@ -135,7 +153,5 @@ onMounted(async () => {
   } catch (error) {
     console.error('Error al obtener órdenes:', error)
   }
-
-  console.log(orders.value)
 })
 </script>

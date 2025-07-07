@@ -16,7 +16,9 @@
 
     <!-- Carrito con productos -->
     <template v-else>
-      <h1 class="text-h4 font-weight-bold text-primary mb-2">Carrito de compras</h1>
+      <h1 class="text-h5 font-weight-bold text-primary mb-6">
+        <v-icon start>mdi-cart-variant</v-icon> Carrito de Compras
+      </h1>
 
       <v-row dense>
         <v-col

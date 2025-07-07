@@ -144,10 +144,10 @@ const finalizeOrder = async (paymentId) => {
     await axios.post('http://localhost:3000/api/order', {
       user_id: user.id,
       status_id: 2,
-      shipping_id: 1, // Puede ser predeterminado o seleccionado antes
+      shipping_id: Math.floor(Math.random() * (3)) + 1, // Puede ser predeterminado o seleccionado antes
       payment_id: paymentId,
       cart_id: cartItems.value[0].cart_id,
-      warehouse_id: 1,
+      warehouse_id: Math.floor(Math.random() * (5)) + 1,
       receiver_name: user.name,
       order_total: total.value,
       created_by: user.email,

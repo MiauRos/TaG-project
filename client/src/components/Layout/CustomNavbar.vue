@@ -22,7 +22,7 @@
 
     <v-btn text to="/" prepend-icon="mdi-home">Inicio</v-btn>
     <v-btn text to="/products" prepend-icon="mdi-tag-multiple">Productos</v-btn>
-    <v-btn text to="/cart" prepend-icon="mdi-cart">Carrito</v-btn>
+    <v-btn text to="/cart" prepend-icon="mdi-cart" v-if="isLoggedIn">Carrito</v-btn>
     <v-btn text to="/orders" prepend-icon="mdi-clipboard-list-outline" v-if="isLoggedIn">
       Mis Pedidos
     </v-btn>

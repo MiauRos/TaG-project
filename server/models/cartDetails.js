@@ -36,9 +36,9 @@ export default (sequelize, DataTypes) => {
   };
 
   CartDetails.associate = (models) => {
-    CartDetails.belongsTo(models.User, {
-      foreignKey: 'user_id',
-      as: 'user'
+    CartDetails.belongsTo(models.Product, {
+      foreignKey: 'product_id',
+      as: 'product'
     });
   };
 

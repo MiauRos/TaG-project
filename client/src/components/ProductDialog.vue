@@ -76,21 +76,28 @@ const handleAddToCart = async () => {
   }
 
   try {
-    const { data: cart } = await axios.post('http://localhost:3000/api/cart/', {
-      user_id: user.id,
-      is_staging: false,
-      is_active: true
-    })
+    const { data: existingCarts } = await axios.get(`http://localhost:3000/api/cart/user/${user.id}?is_staging=false&is_active=true`);
+    let cart;
+    if(existingCarts) {
+      cart = existingCarts[0];
+    } else {
+      cart = await axios.post('http://localhost:3000/api/cart/', {
+        user_id: user.id,
+        is_staging: false,
+        is_active: true
+      })
+    }
 
     await axios.post('http://localhost:3000/api/cart-details/', {
       cart_id: cart.cart_id,
       product_id: props.product.product_id,
       quantity: 1,
       total_price: props.product.price,
-      updated_by: user.email
+      updated_by: user.email,
+      update_date: new Date()
     })
 
-    //emit('add-to-cart')
+    emit('close');
   } catch (error) {
     console.error('Error al agregar al carrito:', error)
   }
@@ -119,7 +126,7 @@ const handleBuyNow = async () => {
 
     //emit('buy-now')
     // Redirigir a página de pago inmediato
-    //window.location.href = `/checkout?cartId=${cart.cart_id}`
+    // window.location.href = '/cart'
   } catch (error) {
     console.error('Error al comprar ahora:', error)
   }

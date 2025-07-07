@@ -4,6 +4,7 @@
     <v-spacer />
     <v-btn text to="/">Inicio</v-btn>
     <v-btn text to="/products">Productos</v-btn>
+    <v-btn text to="/cart">Carrito</v-btn>
     <v-btn text to="/login" v-if="!isLoggedIn">Login</v-btn>
     <v-btn text @click="logout" v-else>Logout</v-btn>
   </v-app-bar>

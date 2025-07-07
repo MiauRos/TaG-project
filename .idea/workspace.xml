@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3a19efd9-792f-4c0c-8dd2-b2ef9b55d233" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Layout/CustomNavbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Layout/CustomNavbar.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +96,7 @@
       <workItem from="1751726618455" duration="22662000" />
       <workItem from="1751816696062" duration="41000" />
       <workItem from="1751816748073" duration="35515000" />
-      <workItem from="1751897543352" duration="9971000" />
+      <workItem from="1751897543352" duration="13485000" />
     </task>
     <servers />
   </component>
